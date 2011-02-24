@@ -4,7 +4,7 @@
 begin 
   data = Vanity::Metric.data(metric)
   min, max = data.map(&:last).minmax
-  js = data.map { |date,value| "['#{date.to_time.httpdate}',#{value}]" }.join(",")
+  js = data.map { |date,value| "['#{(date.to_time + 1.hour).httpdate}',#{value}]" }.join(",")
   vanity_html_safe(%{<div class="chart"></div>
     <script type="text/javascript">
     $(function(){Vanity.metric("#{vanity_h id.to_s}").plot([{label:"#{vanity_h metric.name}", data: [#{js}]}])})
